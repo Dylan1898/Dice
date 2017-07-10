@@ -6,14 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
         var g = new Roller(Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6));
         g.div.addEventListener('click', g.roll.bind(g))
         Numbers.push(g)
+        // g.div.addEventListener('dblclick', g.remover.bind(g))
     })
     document.getElementById('roll').addEventListener('click', function () {
             
             Numbers.forEach(function (die){
                 die.roll()
+                
             })
-            
-           
         })
     document.getElementById('sum').addEventListener('click', function () {
         for(i=0; i<Numbers.length;i++){ 
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 var f=Sum.join('+')
                 var Total= eval(f)
         }
+    
     alert(Total)
     Sum=[]
 
@@ -46,11 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 })
 var Roller = function (value, newValue) {
-    // Numbers=[]
-    // newNumbers=[]
-    // Numbers.push.apply(newNumbers)
-    console.log('pushing')
-    // newNumbers= []
     this.value = value;
     this.div = document.createElement('div');
     var h1 = document.createElement('h1');
@@ -58,11 +54,18 @@ var Roller = function (value, newValue) {
     this.div.appendChild(h1);
     document.body.appendChild(this.div);
     this.div.className = 'dice'
+    // this.div.addEventListener('dblclick', function(){
+    //     this.remove()
+    //     console.log('double')
+    // })
     // Numbers.push(this.value)
     // Array.prototype.push.apply(newNumbers, Numbers)
 
-    this.div.addEventListener('dblclick', function () {
+    this.div.addEventListener('dblclick', function (e) {
         this.remove()
+        console.log('dubl')
+        var index = e.target.getAttribute('value');
+    Numbers.splice(index, 1)
         // if (Numbers.length >= 0) {
         //     // this.value= -value
         //     // Numbers.push(this.value)
@@ -103,3 +106,6 @@ Roller.prototype.roll = function () {
     
 };
 
+// Roller.prototype.remover = function (){
+//     this.remove()
+// }
